@@ -93,7 +93,7 @@ def main():
     df = pd.read_csv('history1.csv')
 
     # Convert dataframe to sql table
-    df.to_sql('history1', engine, index=False)
+    df.to_sql('history2', engine, index=False)
 
 
 

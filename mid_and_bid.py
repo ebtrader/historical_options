@@ -40,10 +40,10 @@ class TestApp(EWrapper, EClient):
         # https://interactivebrokers.github.io/tws-api/historical_bars.html
 
         self.reqHistoricalData(4103, self.contract, '',
-                               "1 D", "1 min", "MIDPOINT", 1, 1, False, [])
+                               "2 D", "1 hour", "MIDPOINT", 1, 1, False, [])
 
         self.reqHistoricalData(4104, self.contract, '',
-                               "1 D", "1 min", "BID", 1, 1, False, [])
+                               "2 D", "1 hour", "BID", 1, 1, False, [])
 
 
         # https://interactivebrokers.github.io/tws-api/historical_bars.html
@@ -55,7 +55,7 @@ class TestApp(EWrapper, EClient):
 
         df = pd.DataFrame(self.data)
         print(df)
-        df.to_csv('history1.csv')
+        df.to_csv('history2.csv')
 
     def historicalDataEnd(self, reqId: int, start: str, end: str):
         super().historicalDataEnd(reqId, start, end)
