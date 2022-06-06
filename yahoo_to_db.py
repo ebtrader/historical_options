@@ -2,6 +2,12 @@ import pandas as pd
 from sqlalchemy import create_engine
 import yfinance as yf
 
+# https://www.dataquest.io/blog/sql-insert-tutorial/
+
+# bring the new data into pandas
+# ingest pandas into staging area
+# join pandas dataframe into existing table
+
 # Credentials to database connection
 path = 'C:/Users/jsidd/PycharmProjects/text_files/host_name.txt'
 with open(path) as g:
