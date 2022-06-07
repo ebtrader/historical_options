@@ -12,7 +12,7 @@ import time
 # https://stackoverflow.com/questions/41510945/interactive-brokers-obtain-historical-data-of-opt-midpoint-and-trades
 # https://groups.io/g/twsapi/topic/data_for_expired_contracts_no/4042776?p=
 
-CHAIN = 
+CHAIN = [30, 31, 32, 33]
 
 class TestApp(EWrapper, EClient):
     def __init__(self):
@@ -38,7 +38,7 @@ class TestApp(EWrapper, EClient):
         path = 'position.txt'
         with open(path) as g:
             position = g.read()
-        self.chain = [30, 31, 32, 33]
+        # self.chain = [30, 31, 32, 33]
         strike_position = int(position)
         self.strike = self.chain[strike_position]
         counter = str(strike_position + 1)
@@ -56,7 +56,7 @@ class TestApp(EWrapper, EClient):
         # https://interactivebrokers.github.io/tws-api/historical_bars.html
 
         self.reqHistoricalData(4103, self.contract, '',
-                               "1 D", "1 hour", "MIDPOINT", 1, 1, False, [])
+                               "2 D", "1 hour", "MIDPOINT", 1, 1, False, [])
 
         # self.reqHistoricalData(4104, self.contract, '',
         #                        "2 D", "1 hour", "BID", 1, 1, False, [])
@@ -80,10 +80,13 @@ class TestApp(EWrapper, EClient):
         self.disconnect()
 
 def main():
-    app = TestApp()
-    app.connect("127.0.0.1", port=7497, clientId=102)
-    print("serverVersion:%s connectionTime:%s" % (app.serverVersion(), app.twsConnectionTime()))
-    app.run()
+    counter1 = 0
+    while counter1 < len(CHAIN):
+        app = TestApp()
+        app.connect("127.0.0.1", port=7497, clientId=102)
+        print("serverVersion:%s connectionTime:%s" % (app.serverVersion(), app.twsConnectionTime()))
+        app.run()
+        counter1 = counter1 + 1
 
 
 if __name__ == "__main__":
