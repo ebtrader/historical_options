@@ -12,7 +12,8 @@ import time
 # https://stackoverflow.com/questions/41510945/interactive-brokers-obtain-historical-data-of-opt-midpoint-and-trades
 # https://groups.io/g/twsapi/topic/data_for_expired_contracts_no/4042776?p=
 
-CHAIN = [16,17,18,19,20,21,21.5,22,22.5,23,23.5,30, 31, 32, 33]
+CHAIN = [31, 32, 33]
+PATH = 'position.txt'
 
 class TestApp(EWrapper, EClient):
     def __init__(self):
@@ -24,6 +25,7 @@ class TestApp(EWrapper, EClient):
         self.strike = 0
         self.expiration = 0
         self.chain = CHAIN
+        self.path = PATH
 
     def nextValidId(self, orderId: int):
         # we can start now
@@ -35,14 +37,14 @@ class TestApp(EWrapper, EClient):
 
     def historicalDataOperations_req(self):
         self.expiration = '20220610'
-        path = 'position.txt'
-        with open(path) as g:
+        self.path = 'position.txt'
+        with open(self.path) as g:
             position = g.read()
         # self.chain = [30, 31, 32, 33]
         strike_position = int(position)
         self.strike = self.chain[strike_position]
         counter = str(strike_position + 1)
-        with open(path, "w") as h:
+        with open(self.path, "w") as h:
             h.write(counter)
         self.contract.symbol = "TQQQ"
         self.contract.secType = "OPT"
@@ -81,12 +83,22 @@ class TestApp(EWrapper, EClient):
 
 def main():
     counter1 = 0
+    initial_value = str(0)
     while counter1 < len(CHAIN):
-        app = TestApp()
-        app.connect("127.0.0.1", port=7497, clientId=102)
-        print("serverVersion:%s connectionTime:%s" % (app.serverVersion(), app.twsConnectionTime()))
-        app.run()
-        counter1 = counter1 + 1
+        if counter1 == len(CHAIN) - 1:
+            app = TestApp()
+            app.connect("127.0.0.1", port=7497, clientId=102)
+            print("serverVersion:%s connectionTime:%s" % (app.serverVersion(), app.twsConnectionTime()))
+            app.run()
+            counter1 = counter1 + 1
+            with open(PATH, "w") as i:
+                i.write(initial_value)
+        else:
+            app = TestApp()
+            app.connect("127.0.0.1", port=7497, clientId=102)
+            print("serverVersion:%s connectionTime:%s" % (app.serverVersion(), app.twsConnectionTime()))
+            app.run()
+            counter1 = counter1 + 1
 
 
 if __name__ == "__main__":
