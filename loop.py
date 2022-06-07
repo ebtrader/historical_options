@@ -18,7 +18,6 @@ class TestApp(EWrapper, EClient):
         EClient.__init__(self, wrapper=self)
         self.data = []  # Initialize variable to store candle
         self.contract = Contract()
-        self.i = 0
         self.df = pd.DataFrame()
 
     def nextValidId(self, orderId: int):
@@ -30,28 +29,34 @@ class TestApp(EWrapper, EClient):
         print("Executing requests ... finished")
 
     def historicalDataOperations_req(self):
-        chain = [28, 29, 30, 31, 32, 33, 33.5, 34, 34.5, 35]
-        for self.i in chain:
+        path = 'position.txt'
+        with open(path) as g:
+            position = g.read()
+        chain = [30, 31, 32, 33]
+        strike_position = int(position)
+        strike = chain[strike_position]
+        counter = str(strike_position + 1)
+        with open(path, "w") as h:
+            h.write(counter)
+        self.contract.symbol = "TQQQ"
+        self.contract.secType = "OPT"
+        self.contract.exchange = "SMART"
+        self.contract.currency = "USD"
+        self.contract.lastTradeDateOrContractMonth = "20220610"
+        self.contract.strike = strike
+        self.contract.right = "C"
+        self.contract.multiplier = "100"
 
-            self.contract.symbol = "TQQQ"
-            self.contract.secType = "OPT"
-            self.contract.exchange = "SMART"
-            self.contract.currency = "USD"
-            self.contract.lastTradeDateOrContractMonth = "20220610"
-            self.contract.strike = self.i
-            self.contract.right = "C"
-            self.contract.multiplier = "100"
+        # https://interactivebrokers.github.io/tws-api/historical_bars.html
 
-            # https://interactivebrokers.github.io/tws-api/historical_bars.html
+        self.reqHistoricalData(4103, self.contract, '',
+                               "1 D", "1 hour", "MIDPOINT", 1, 1, False, [])
 
-            self.reqHistoricalData(4103, self.contract, '',
-                                   "1 D", "1 hour", "MIDPOINT", 1, 1, False, [])
+        # self.reqHistoricalData(4104, self.contract, '',
+        #                        "2 D", "1 hour", "BID", 1, 1, False, [])
+        #
 
-            # self.reqHistoricalData(4104, self.contract, '',
-            #                        "2 D", "1 hour", "BID", 1, 1, False, [])
-            #
-
-            # https://interactivebrokers.github.io/tws-api/historical_bars.html
+        # https://interactivebrokers.github.io/tws-api/historical_bars.html
 
     def historicalData(self, reqId: int, bar: BarData):
         print("HistoricalData. ReqId:", reqId, "BarData.", bar)

@@ -1,3 +1,18 @@
 beat the pacing violation by turning off the connection and coming back in
 take the whole option chain and save it as a csv
 then use a bread crumb that saves the current value of the counter
+you can loop through 5 at a time
+
+STEPS:
+
+Class1:
+Get strike list from yf and save it as csv
+
+Class2:
+1. pull csv into a list and start with position 0 from text file and iterate through list
+2. update and merge with original df and save as csv
+3. send final df to db
+4. at end of strike list bring text file back to 0
+
+plot yield history against the underlying
+
