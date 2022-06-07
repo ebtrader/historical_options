@@ -19,6 +19,7 @@ class TestApp(EWrapper, EClient):
         self.data = []  # Initialize variable to store candle
         self.contract = Contract()
         self.i = 0
+        self.df = pd.DataFrame()
 
     def nextValidId(self, orderId: int):
         # we can start now
@@ -29,9 +30,9 @@ class TestApp(EWrapper, EClient):
         print("Executing requests ... finished")
 
     def historicalDataOperations_req(self):
-
-        chain = [32, 33, 34]
+        chain = [28, 29, 30, 31, 32, 33, 33.5, 34, 34.5, 35]
         for self.i in chain:
+
             self.contract.symbol = "TQQQ"
             self.contract.secType = "OPT"
             self.contract.exchange = "SMART"
@@ -44,7 +45,7 @@ class TestApp(EWrapper, EClient):
             # https://interactivebrokers.github.io/tws-api/historical_bars.html
 
             self.reqHistoricalData(4103, self.contract, '',
-                                   "2 D", "1 hour", "MIDPOINT", 1, 1, False, [])
+                                   "1 D", "1 hour", "MIDPOINT", 1, 1, False, [])
 
             # self.reqHistoricalData(4104, self.contract, '',
             #                        "2 D", "1 hour", "BID", 1, 1, False, [])
@@ -56,10 +57,10 @@ class TestApp(EWrapper, EClient):
         print("HistoricalData. ReqId:", reqId, "BarData.", bar)
 
         self.data.append([reqId, bar])
-
-        df = pd.DataFrame(self.data)
+        self.df = pd.DataFrame(self.data)
         # print(df)
-        df.to_csv('history4.csv')
+        self.df.to_csv('history4.csv')
+
 
     def historicalDataEnd(self, reqId: int, start: str, end: str):
         super().historicalDataEnd(reqId, start, end)
