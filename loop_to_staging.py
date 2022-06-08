@@ -77,7 +77,7 @@ class TestApp(EWrapper, EClient):
         self.df = pd.DataFrame(self.data)
         # print(df)
         # https://www.adamsmith.haus/python/answers/how-to-create-a-filename-using-variables-in-python
-        filename_combo = str(self.ticker) + '_' + str(self.strike) + '_' + str(self.expiration)
+        filename_combo = str(self.ticker) + '_' + str(self.strike) + '_' + str(self.expiration) + '_'
         filename = '%s.csv' % filename_combo
         self.df.to_csv(self.staging + filename, index=False)
         # https://stackoverflow.com/questions/22872952/set-file-path-for-to-csv-in-pandas

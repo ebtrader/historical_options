@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from datetime import datetime
+
 
 path = 'C:/Users/jsidd/PycharmProjects/historical_options/staging_area/'
 dir_list = os.listdir(path)
@@ -28,9 +28,14 @@ df = df.replace({'Close:':''}, regex=True)
 # df = df.replace({'Volume:':''}, regex=True)
 # df = df.replace({'Average:':''}, regex=True)
 # df = df.replace({'BarCount:':''}, regex=True)
-print(df)
+# print(df)
 
 df.columns = ['datetime', 'open', 'high', 'low', 'close']
+df['open'] = pd.to_numeric(df['open'])
+df['high'] = pd.to_numeric(df['high'])
+df['low'] = pd.to_numeric(df['low'])
+df['close'] = pd.to_numeric(df['close'])
+
 # df[['date', 'time']] = df['time'].str.split(' ', expand=True)
 # df[['date', 'time']] = df['datetime'].str.split('|', expand=True).add_prefix(df['datetime'])
 # df['time'] = df['time'].replace(' ', ',', regex=True)
@@ -53,3 +58,56 @@ df['expiration'] = pd.to_datetime(df['expiration'])
 df.to_csv('test.csv', index=False)
 print(df)
 
+import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+import pandas as pd
+
+
+# Set up of the engine to connect to the database
+# the urlquote is used for passing the password which might contain special characters such as "/"
+# Credentials to database connection
+path = 'C:/Users/jsidd/PycharmProjects/text_files/host_name.txt'
+with open(path) as g:
+    host = g.read()
+
+path1 = 'C:/Users/jsidd/PycharmProjects/text_files/db.txt'
+with open(path1) as h:
+    db = h.read()
+
+path2 = 'C:/Users/jsidd/PycharmProjects/text_files/uname.txt'
+with open(path2) as i:
+    username = i.read()
+
+path3 = 'C:/Users/jsidd/PycharmProjects/text_files/word.txt'
+with open(path3) as j:
+    word = j.read()
+
+engine = create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}"
+				.format(host=host, db=db, user=username, pw=word))
+
+conn = engine.connect()
+# Set up of the table in db and the file to import
+
+tableToWriteTo = 'tqqq'
+
+# Panda to create a lovely dataframe
+df_to_be_written = df
+# The orient='records' is the key of this, it allows to align with the format mentioned in the doc to insert in bulks.
+listToWrite = df_to_be_written.to_dict(orient='records')
+
+metadata = sqlalchemy.schema.MetaData(bind=engine)
+table = sqlalchemy.Table(tableToWriteTo, metadata, autoload=True)
+
+# Open the session
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# Inser the dataframe into the database in one bulk
+conn.execute(table.insert(), listToWrite)
+
+# Commit the changes
+session.commit()
+
+# Close the session
+session.close()

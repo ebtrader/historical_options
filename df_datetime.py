@@ -38,17 +38,9 @@ df['datetime'] = df['datetime'].str.strip()
 df['datetime'] = df['datetime'].replace('  ', ' ', regex=True)
 df['datetime'] = pd.to_datetime(df['datetime'])
 # https://vertabelo.com/blog/what-datatype-should-you-use-to-represent-time-in-mysql-we-compare-datetime-timestamp-and-int/#:~:text=MySQL%20retrieves%20and%20displays%20DATETIME,microseconds%20(6%20digits)%20precision.
+# https://stackoverflow.com/questions/14387947/fastest-way-to-insert-these-dashes-in-python-string
 
-# strip out Ticker Strike and Expiration
-filename = dir_list[0]
-ticker = filename.split('_')[0]
-strike = filename.split('_')[1]
-expiration = filename.split('_')[2]
 
-df['ticker'] = ticker
-df['strike'] = strike
-df['expiration'] = expiration
-df['expiration'] = pd.to_datetime(df['expiration'])
 
 df.to_csv('test.csv', index=False)
 print(df)
