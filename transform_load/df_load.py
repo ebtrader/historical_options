@@ -7,10 +7,10 @@ dir_list = os.listdir(path)
 
 print("Files and directories in '", path, "' :")
 
-# prints all files
+# prints list of all files
 print(dir_list)
-
-file = path + dir_list[0]
+list_position = 2
+file = path + dir_list[list_position]
 df = pd.read_csv(file)
 # df = df.reset_index(drop=True)    # remove index
 df = df.iloc[: , 1:]              # remove first column
@@ -45,7 +45,7 @@ df['datetime'] = pd.to_datetime(df['datetime'])
 # https://vertabelo.com/blog/what-datatype-should-you-use-to-represent-time-in-mysql-we-compare-datetime-timestamp-and-int/#:~:text=MySQL%20retrieves%20and%20displays%20DATETIME,microseconds%20(6%20digits)%20precision.
 
 # strip out Ticker Strike and Expiration
-filename = dir_list[0]
+filename = dir_list[list_position]
 ticker = filename.split('_')[0]
 strike = filename.split('_')[1]
 expiration = filename.split('_')[2]

@@ -32,6 +32,7 @@ students = Table(
     Column('low', Float),
     Column('close', Float),
     Column('ticker', String(10)),
+    Column('strike', Integer),
     Column('expiration', DateTime),
    Column('time_created',DateTime(timezone=True), server_default=func.now())
 )
