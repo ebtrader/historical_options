@@ -1,6 +1,6 @@
 # https://stackoverflow.com/questions/13370317/sqlalchemy-default-datetime
 
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, func, DateTime
 
 path = 'C:/Users/jsidd/PycharmProjects/text_files/host_name.txt'
 with open(path) as g:
@@ -24,9 +24,11 @@ engine = create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}"
 meta = MetaData()
 
 students = Table(
-   'students', meta,
+   'students3', meta,
    Column('id', Integer, nullable=False, autoincrement=True, primary_key = True),
    Column('name', String(50)),
-   Column('lastname', String(50))
+   Column('lastname', String(50)),
+   Column('time_created',DateTime(timezone=True), server_default=func.now())
 )
+
 meta.create_all(engine)

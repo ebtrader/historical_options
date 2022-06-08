@@ -52,7 +52,7 @@ conn = engine.connect()
 
 # Set up of the table in db and the file to import
 fileToRead = 'names.csv'
-tableToWriteTo = 'students'
+tableToWriteTo = 'students3'
 
 # Panda to create a lovely dataframe
 df_to_be_written = pd.read_csv(fileToRead)
