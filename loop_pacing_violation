@@ -16,3 +16,8 @@ Class2:
 
 plot yield history against the underlying
 
+
+for flat files
+save 60 bid, mid and ask and add columns for ticker and bid mid or ask or use the code
+
+

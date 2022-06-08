@@ -8,12 +8,14 @@ from ibapi.wrapper import EWrapper
 from ibapi.common import *  # @UnusedWildImport
 from ibapi.contract import * # @UnusedWildImport
 import time
+import os
 
 # https://stackoverflow.com/questions/41510945/interactive-brokers-obtain-historical-data-of-opt-midpoint-and-trades
 # https://groups.io/g/twsapi/topic/data_for_expired_contracts_no/4042776?p=
 
 CHAIN = [31, 32, 33]
 PATH = 'position.txt'
+STAGING = 'C:/Users/jsidd/PycharmProjects/historical_options/staging_area/'
 
 class TestApp(EWrapper, EClient):
     def __init__(self):
@@ -26,6 +28,7 @@ class TestApp(EWrapper, EClient):
         self.expiration = 0
         self.chain = CHAIN
         self.path = PATH
+        self.staging = STAGING
 
     def nextValidId(self, orderId: int):
         # we can start now
@@ -74,7 +77,9 @@ class TestApp(EWrapper, EClient):
         # https://www.adamsmith.haus/python/answers/how-to-create-a-filename-using-variables-in-python
         filename_combo = str(self.strike) + str(self.expiration)
         filename = '%s.csv' % filename_combo
-        self.df.to_csv(filename)
+        self.df.to_csv(self.staging + filename, index=False)
+        # https://stackoverflow.com/questions/22872952/set-file-path-for-to-csv-in-pandas
+
 
     def historicalDataEnd(self, reqId: int, start: str, end: str):
         super().historicalDataEnd(reqId, start, end)
