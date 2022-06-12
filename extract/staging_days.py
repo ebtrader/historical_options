@@ -13,7 +13,7 @@ import os
 # https://stackoverflow.com/questions/41510945/interactive-brokers-obtain-historical-data-of-opt-midpoint-and-trades
 # https://groups.io/g/twsapi/topic/data_for_expired_contracts_no/4042776?p=
 
-CHAIN = [16,17,18,19,20,21,21.5,22,22.5,23,23.5,24,24.5,25,26,27,28,29,30,31,32,33,33.5,34,34.5,35,35.5,36,36.5,37,37.5,38,38.5,39,39.5,40,40.5,41,41.5,42,42.5,43,43.5,44,44.5,45,45.5,46,47,48,49,50,51,55]
+CHAIN = [40.5,41,41.5,42,42.5,43,43.5,44,44.5,45,45.5,46,47]
 PATH = '../position.txt'
 STAGING = 'C:/Users/jsidd/PycharmProjects/historical_options/staging_area/'
 TICKER = 'TQQQ'
@@ -63,7 +63,7 @@ class TestApp(EWrapper, EClient):
         # https://interactivebrokers.github.io/tws-api/historical_bars.html
 
         self.reqHistoricalData(4103, self.contract, '',
-                               "8 D", "5 mins", "MIDPOINT", 1, 1, False, [])
+                               "2 D", "5 mins", "MIDPOINT", 1, 1, False, [])
 
         # self.reqHistoricalData(4104, self.contract, '',
         #                        "2 D", "1 hour", "BID", 1, 1, False, [])
