@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 counter = 0
-dq_path = 'C:/Users/jsidd/PycharmProjects/historical_options/staging_area/'
+dq_path = '/staging_area/'
 dir_list = os.listdir(dq_path)
 
 while counter < len(dir_list):
