@@ -14,7 +14,7 @@ import os
 # https://groups.io/g/twsapi/topic/data_for_expired_contracts_no/4042776?p=
 
 CHAIN = [27,28,29]
-PATH = '../position.txt'
+PATH = '../../position.txt'
 STAGING = 'C:/Users/jsidd/PycharmProjects/historical_options/staging_area/'
 TICKER = 'TQQQ'
 
@@ -42,7 +42,7 @@ class TestApp(EWrapper, EClient):
 
     def historicalDataOperations_req(self):
         self.expiration = '20220610'
-        self.path = '../position.txt'
+        self.path = '../../position.txt'
         with open(self.path) as g:
             position = g.read()
         # self.chain = [30, 31, 32, 33]

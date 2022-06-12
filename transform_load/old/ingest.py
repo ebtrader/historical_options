@@ -32,7 +32,7 @@ conn = engine.connect()
 tableToWriteTo = 'tqqq'
 
 # Panda to create a lovely dataframe
-dq_path = 'C:/Users/jsidd/PycharmProjects/historical_options/data_quality/'
+dq_path = '/data_quality/'
 file = 'TQQQ_31_20220610_dq.csv'
 filename = dq_path + file
 df_to_be_written = pd.read_csv(filename)

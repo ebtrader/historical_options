@@ -13,7 +13,8 @@ import os
 # https://stackoverflow.com/questions/41510945/interactive-brokers-obtain-historical-data-of-opt-midpoint-and-trades
 # https://groups.io/g/twsapi/topic/data_for_expired_contracts_no/4042776?p=
 
-CHAIN = [40.5,41,41.5,42,42.5,43,43.5,44,44.5,45,45.5,46,47]
+# CHAIN = [40.5,41,41.5,42,42.5,43,43.5,44,44.5,45,45.5,46,47]
+CHAIN = [25,26,27,28,29]
 PATH = '../position.txt'
 STAGING = 'C:/Users/jsidd/PycharmProjects/historical_options/staging_area/'
 TICKER = 'TQQQ'

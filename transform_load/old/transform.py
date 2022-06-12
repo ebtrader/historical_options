@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 counter = 0
-path = 'C:/Users/jsidd/PycharmProjects/historical_options/staging_area/'
+path = '/staging_area/'
 dir_list = os.listdir(path)
 
 
