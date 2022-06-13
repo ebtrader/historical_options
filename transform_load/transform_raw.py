@@ -30,7 +30,7 @@ path3 = 'C:/Users/jsidd/PycharmProjects/text_files/word.txt'
 with open(path3) as j:
     word = j.read()
 
-table_name='tqqq_raw'
+table_name='tqqq_raw_temp'
 
 engine = create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}"
 				.format(host=host, db=db, user=username, pw=word, table=table_name))
