@@ -1,0 +1,18 @@
+1. start with the extract folder:
+
+for up to today:
+staging_bid_ask.py
+
+for ending on a day in the past:
+staging_time_in_past.py
+
+2. next go to transform_load folder:
+
+ingest_dq_raw_temp.py
+transform_raw.py
+
+3. from modeling using create_tqqq_raw_temp.py to create the table in the db
+
+
+
+

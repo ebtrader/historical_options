@@ -12,7 +12,7 @@ import time
 # https://stackoverflow.com/questions/41510945/interactive-brokers-obtain-historical-data-of-opt-midpoint-and-trades
 # https://groups.io/g/twsapi/topic/data_for_expired_contracts_no/4042776?p=
 
-CHAIN = [16,17,18,19,20,21,21.5,22,22.5,23,23.5,30, 31, 32, 33]
+CHAIN = [32,33,34,35,36,37,38,39,40,41]
 
 class TestApp(EWrapper, EClient):
     def __init__(self):
@@ -34,7 +34,7 @@ class TestApp(EWrapper, EClient):
         print("Executing requests ... finished")
 
     def historicalDataOperations_req(self):
-        self.expiration = '20220610'
+        self.expiration = '20230616'
         path = 'position.txt'
         with open(path) as g:
             position = g.read()
